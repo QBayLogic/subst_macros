@@ -1,0 +1,14 @@
+[package]
+name = "subst_macros"
+version = "0.1.0"
+edition = "2024"
+authors = [
+    "Ryan Slawson <ryan@qbaylogic.com>",
+]
+description = "Declarative macros for token substitution"
+keywords = ["macros", "macro", "declarative-macros", "declarative-macro"]
+license-file = "LICENSE"
+repository = "https://github.com/QBayLogic/subst_macros"
+
+[features]
+macro_metavar_expr = []

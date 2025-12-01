@@ -1,0 +1,39 @@
+# SPDX-FileCopyrightText: 2025 Google LLC
+#
+# SPDX-License-Identifier: Apache-2.0
+
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  license-check:
+    runs-on: [self-hosted, compute]
+    container:
+      image: ubuntu:22.04
+      options: --memory=11g
+    steps:
+      - uses: actions/checkout@v4
+      - name: REUSE Compliance Check
+        uses: fsfe/reuse-action@v1
+
+  build:
+    runs-on: ubuntu:22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: cargo build --verbose
+      - name: Run tests
+        run: cargo test --verbose
+      - name: Build (nightly)
+        run: cargo +nightly build --features=macro_metavar_expr
+      - name: Run tests (nightly)
+        run: cargo +nightly test --features=macro_metavar_expr
+
